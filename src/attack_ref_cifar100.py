@@ -23,9 +23,9 @@ from .utils import boolean_string, set_logger, get_image_shape, get_num_classes,
     calc_acc_precision_recall, normalize
 from .models import AlexNetRef, ResNet110Ref, DenseNetRef
 
-from ..art.attacks.inference.membership_inference import LabelOnlyDecisionBoundary, \
+from art.attacks.inference.membership_inference import LabelOnlyDecisionBoundary, \
     MembershipInferenceBlackBoxRuleBased, MembershipInferenceBlackBox, SelfInfluenceFunctionAttack
-from ..art.estimators.classification import PyTorchClassifier
+from art.estimators.classification import PyTorchClassifier
 
 parser = argparse.ArgumentParser(description='Membership attack script for REF paper')
 parser.add_argument('--checkpoint_dir', default='/tmp/mi/cifar100/alexnet_ref', type=str, help='checkpoint dir')
