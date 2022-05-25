@@ -8,9 +8,9 @@ scikit-learn
 scipy
 seaborn
 setuptools==59.4.0
-torch==1.10.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
+torch==1.10.1+cu113
 torchsummary==1.5.1
-torchvision==0.11.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
+torchvision==0.11.1+cu113
 tqdm
 tensorboard
 
