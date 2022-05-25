@@ -234,8 +234,8 @@ if args.fast:
     if not os.path.exists(os.path.join(OUTPUT_DIR, 'X_member_train_fast.npy')):
         X_member_train, y_member_train = randomize_max_p_points(X_member_train, y_member_train, 50)
         X_non_member_train, y_non_member_train = randomize_max_p_points(X_non_member_train, y_non_member_train, 50)
-        X_member_test, y_member_test = randomize_max_p_points(X_member_test, y_member_test, 250)
-        X_non_member_test, y_non_member_test = randomize_max_p_points(X_non_member_test, y_non_member_test, 250)
+        X_member_test, y_member_test = randomize_max_p_points(X_member_test, y_member_test, 50)
+        X_non_member_test, y_non_member_test = randomize_max_p_points(X_non_member_test, y_non_member_test, 50)
         np.save(os.path.join(OUTPUT_DIR, 'X_member_train_fast.npy'), X_member_train)
         np.save(os.path.join(OUTPUT_DIR, 'y_member_train_fast.npy'), y_member_train)
         np.save(os.path.join(OUTPUT_DIR, 'X_non_member_train_fast.npy'), X_non_member_train)
