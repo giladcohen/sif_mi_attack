@@ -54,4 +54,3 @@ This script runs our adaSIF attack on the pretrained DenseNet model for CIFAR-10
 ```
 python src/attack_ref_cifar100.py --checkpoint_dir /tmp/mi/cifar100/densenet_ref_paper --arch densenet --attack self_influence --adaptive True --rec_dep 8 --r 8
 ```
-   
