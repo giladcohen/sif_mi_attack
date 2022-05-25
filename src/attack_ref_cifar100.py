@@ -204,10 +204,10 @@ def randomize_max_p_points(x: np.ndarray, y: np.ndarray, p: int):
 if args.fast:
     # to reproduce, we collect the same samples that were selected from a previous "fast" run, it they exist
     if not os.path.exists(os.path.join(OUTPUT_DIR, 'X_member_train_fast.npy')):
-        X_member_train, y_member_train = randomize_max_p_points(X_member_train, y_member_train, 500)
-        X_non_member_train, y_non_member_train = randomize_max_p_points(X_non_member_train, y_non_member_train, 500)
-        X_member_test, y_member_test = randomize_max_p_points(X_member_test, y_member_test, 2500)
-        X_non_member_test, y_non_member_test = randomize_max_p_points(X_non_member_test, y_non_member_test, 2500)
+        X_member_train, y_member_train = randomize_max_p_points(X_member_train, y_member_train, 10)
+        X_non_member_train, y_non_member_train = randomize_max_p_points(X_non_member_train, y_non_member_train, 10)
+        X_member_test, y_member_test = randomize_max_p_points(X_member_test, y_member_test, 10)
+        X_non_member_test, y_non_member_test = randomize_max_p_points(X_non_member_test, y_non_member_test, 10)
         np.save(os.path.join(OUTPUT_DIR, 'X_member_train_fast.npy'), X_member_train)
         np.save(os.path.join(OUTPUT_DIR, 'y_member_train_fast.npy'), y_member_train)
         np.save(os.path.join(OUTPUT_DIR, 'X_non_member_train_fast.npy'), X_non_member_train)
