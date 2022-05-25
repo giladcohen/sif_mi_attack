@@ -17,11 +17,11 @@ import argparse
 import time
 import logging
 
-from .consts import RGB_MEAN, RGB_STD
-from .datasets.train_val_test_data_loaders import get_test_loader, get_loader_with_specific_inds, get_normalized_tensor
-from .utils import boolean_string, set_logger, get_image_shape, get_num_classes, get_max_train_size, \
+from consts import RGB_MEAN, RGB_STD
+from datasets.train_val_test_data_loaders import get_test_loader, get_loader_with_specific_inds, get_normalized_tensor
+from utils import boolean_string, set_logger, get_image_shape, get_num_classes, get_max_train_size, \
     calc_acc_precision_recall, normalize
-from .models import AlexNetRef, ResNet110Ref, DenseNetRef
+from models import AlexNetRef, ResNet110Ref, DenseNetRef
 
 from art.attacks.inference.membership_inference import LabelOnlyDecisionBoundary, \
     MembershipInferenceBlackBoxRuleBased, MembershipInferenceBlackBox, SelfInfluenceFunctionAttack
