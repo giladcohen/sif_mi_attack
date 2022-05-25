@@ -45,5 +45,13 @@ Notice that in our paper we fit and infer the Boundary distance attack on 500 an
 python src/attack.py --checkpoint_dir /tmp/mi/cifar10/resnet18/s_25k_w_aug --attack boundary_distance --fast True
 ```    
 # Run MI attack on pretrained models
-To compare our results to the white-box attack in [https://arxiv.org/abs/1812.00910](https://arxiv.org/abs/1812.00910), we use the 
+To compare our results to the white-box attack in [https://arxiv.org/abs/1812.00910](https://arxiv.org/abs/1812.00910), we use the same pretrained models they employed to train CIFAR-100 in their paper (AlexNet, ResNet110, and DenseNet). These pretrained models can be downloded from [GitHub repo](https://github.com/bearpaw/pytorch-classification). Since ResNet110 model weights cannot be loaded successfully, we trained the same architecture from scratch via:
+```
+cd pytorch_classification
+python cifar.py -a resnet --dataset cifar100 --depth 110 --epochs 164 --schedule 81 122 --gamma 0.1 --wd 1e-4 --checkpoint /tmp/mi/cifar100/resnet110_ref_paper
+```
+This script runs our adaSIF attack on the pretrained DenseNet model for CIFAR-100:
+```
+python src/attack_ref_cifar100.py --checkpoint_dir /tmp/mi/cifar100/densenet_ref_paper --arch densenet --attack self_influence --adaptive True --rec_dep 8 --r 8
+```
    
