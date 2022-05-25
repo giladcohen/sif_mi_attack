@@ -28,23 +28,20 @@ from art.attacks.inference.membership_inference import LabelOnlyDecisionBoundary
 from art.estimators.classification import PyTorchClassifier
 
 parser = argparse.ArgumentParser(description='Membership attack script for REF paper')
-parser.add_argument('--checkpoint_dir', default='/tmp/mi/cifar100/alexnet_ref', type=str, help='checkpoint dir')
+parser.add_argument('--checkpoint_dir', default='/tmp/mi/cifar100/resnet110_ref', type=str, help='checkpoint dir')
 parser.add_argument('--checkpoint_file', default='ckpt.pth', type=str, help='checkpoint path file name')
-parser.add_argument('--arch', default='alexnet', type=str, help='can be alexnet/resnet/densenet')
+parser.add_argument('--arch', default='resnet', type=str, help='can be alexnet/resnet/densenet')
 parser.add_argument('--attack', default='self_influence', type=str, help='MI attack: gap/black_box/boundary_distance/self_influence')
-parser.add_argument('--output_dir', default='debug', type=str, help='attack directory')
-parser.add_argument('--generate_mi_data', default=False, type=boolean_string, help='To generate MI data')
+parser.add_argument('--output_dir', default='', type=str, help='attack directory')
+parser.add_argument('--generate_mi_data', default=True, type=boolean_string, help='To generate MI data')
 parser.add_argument('--fast', default=False, type=boolean_string, help='Fast fit (500 samples) and inference (2500 samples)')
 
 # self_influence attack params
 parser.add_argument('--miscls_as_nm', default=True, type=boolean_string, help='Label misclassification is inferred as non members')
 parser.add_argument('--adaptive', default=False, type=boolean_string, help='Using train loader of influence function with augmentations')
 parser.add_argument('--average', default=False, type=boolean_string, help='Using train loader of influence function with augmentations, ensemble method')
-parser.add_argument('--rec_dep', type=int, default=8, help='recursion_depth of the influence functions.')
-parser.add_argument('--r', type=int, default=8, help='number of iterations of which to take the avg of the h_estimate calculation.')
-
-parser.add_argument('--mode', default='null', type=str, help='to bypass pycharm bug')
-parser.add_argument('--port', default='null', type=str, help='to bypass pycharm bug')
+parser.add_argument('--rec_dep', type=int, default=1, help='recursion_depth of the influence functions.')
+parser.add_argument('--r', type=int, default=1, help='number of iterations of which to take the avg of the h_estimate calculation.')
 
 args = parser.parse_args()
 
@@ -204,10 +201,10 @@ def randomize_max_p_points(x: np.ndarray, y: np.ndarray, p: int):
 if args.fast:
     # to reproduce, we collect the same samples that were selected from a previous "fast" run, it they exist
     if not os.path.exists(os.path.join(OUTPUT_DIR, 'X_member_train_fast.npy')):
-        X_member_train, y_member_train = randomize_max_p_points(X_member_train, y_member_train, 10)
-        X_non_member_train, y_non_member_train = randomize_max_p_points(X_non_member_train, y_non_member_train, 10)
-        X_member_test, y_member_test = randomize_max_p_points(X_member_test, y_member_test, 10)
-        X_non_member_test, y_non_member_test = randomize_max_p_points(X_non_member_test, y_non_member_test, 10)
+        X_member_train, y_member_train = randomize_max_p_points(X_member_train, y_member_train, 500)
+        X_non_member_train, y_non_member_train = randomize_max_p_points(X_non_member_train, y_non_member_train, 500)
+        X_member_test, y_member_test = randomize_max_p_points(X_member_test, y_member_test, 2500)
+        X_non_member_test, y_non_member_test = randomize_max_p_points(X_non_member_test, y_non_member_test, 2500)
         np.save(os.path.join(OUTPUT_DIR, 'X_member_train_fast.npy'), X_member_train)
         np.save(os.path.join(OUTPUT_DIR, 'y_member_train_fast.npy'), y_member_train)
         np.save(os.path.join(OUTPUT_DIR, 'X_non_member_train_fast.npy'), X_non_member_train)

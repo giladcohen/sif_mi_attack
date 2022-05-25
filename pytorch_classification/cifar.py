@@ -335,7 +335,7 @@ def test(testloader, model, criterion, epoch, use_cuda):
     bar.finish()
     return (losses.avg, top1.avg)
 
-def save_checkpoint(state, is_best, checkpoint='checkpoint', filename='checkpoint.pth'):
+def save_checkpoint(state, is_best, checkpoint='checkpoint', filename='ckpt.pth'):
     filepath = os.path.join(checkpoint, filename)
     torch.save(state, filepath)
     if is_best:
