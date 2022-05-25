@@ -24,16 +24,16 @@ from utils import boolean_string, get_image_shape, set_logger, get_parameter_gro
 from models.utils import get_strides, get_conv1_params, get_densenet_conv1_params, get_model
 
 parser = argparse.ArgumentParser(description='Training target models using PyTorch')
-parser.add_argument('--checkpoint_dir', default='/tmp/mi/target_model_cifar100', type=str, help='checkpoint dir')
+parser.add_argument('--checkpoint_dir', default='/tmp/mi/tiny_imagenet/resnet18/s_25k_wo_aug', type=str, help='checkpoint dir')
 
 # dataset
-parser.add_argument('--dataset', default='cifar100', type=str, help='datasets: cifar10, cifar100, tiny_imagenet')
-parser.add_argument('--train_size', default=0.5, type=float, help='Fraction of train size out of entire trainset')
+parser.add_argument('--dataset', default='tiny_imagenet', type=str, help='datasets: cifar10, cifar100, tiny_imagenet')
+parser.add_argument('--train_size', default=0.25, type=float, help='Fraction of train size out of entire trainset')
 parser.add_argument('--val_size', default=0.05, type=float, help='Fraction of validation size out of entire trainset')
 parser.add_argument('--augmentations', default=False, type=boolean_string, help='Include data augmentations')
 
 # architecture:
-parser.add_argument('--net', default='densenet', type=str, help='network architecture')
+parser.add_argument('--net', default='resnet18', type=str, help='network architecture')
 parser.add_argument('--activation', default='relu', type=str, help='network activation: relu, softplus, or swish')
 
 # optimization:
@@ -51,9 +51,6 @@ parser.add_argument('--lr_scheduler', default='reduce_on_plateau', type=str, hel
 parser.add_argument('--factor', default=0.9, type=float, help='LR schedule factor')
 parser.add_argument('--patience', default=3, type=int, help='LR schedule patience')
 parser.add_argument('--cooldown', default=0, type=int, help='LR cooldown')
-
-parser.add_argument('--mode', default='null', type=str, help='to bypass pycharm bug')
-parser.add_argument('--port', default='null', type=str, help='to bypass pycharm bug')
 
 args = parser.parse_args()
 
