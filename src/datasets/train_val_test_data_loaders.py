@@ -13,9 +13,9 @@ from torch.utils.data.sampler import SubsetRandomSampler, SequentialSampler
 from sklearn.model_selection import train_test_split
 
 from . import MyCIFAR10, MyCIFAR100, TinyImageNet
-from ..utils import get_image_shape
+from utils import get_image_shape
 
-BASE_DATASET_DIR = '/tmp/dataset'
+BASE_DATASET_DIR = '/tmp/datasets'
 def dataset_factory(dataset):
     if dataset == 'cifar10':
         data_dir = os.path.join(BASE_DATASET_DIR, 'cifar10')

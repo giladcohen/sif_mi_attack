@@ -14,10 +14,6 @@ from pytorch_influence_functions.influence_functions.utils import (
     tensor_to_tuple,
 )
 
-# debug
-from research.utils import convert_tensor_to_image
-import matplotlib.pyplot as plt
-
 
 def s_test_cg(x_test, y_test, model, train_loader, damp, gpu=-1, verbose=True, loss_func="cross_entropy"):
 

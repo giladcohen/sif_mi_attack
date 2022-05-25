@@ -6,7 +6,7 @@ from typing import Any, Callable, Optional, Tuple
 from tqdm import tqdm
 from torchvision.datasets import VisionDataset
 from torchvision.datasets.utils import download_and_extract_archive
-from ..utils import get_all_files_recursive, convert_grayscale_to_rgb, inverse_map
+from utils import get_all_files_recursive, convert_grayscale_to_rgb, inverse_map
 
 class TinyImageNet(VisionDataset):
     """`TinyImageNet <https://www.kaggle.com/c/tiny-imagenet>`_ Dataset.
@@ -58,7 +58,6 @@ class TinyImageNet(VisionDataset):
         self.class_to_idx = self.parse_classes()
         self.idx_to_class = inverse_map(self.class_to_idx)
         self.classes = self.get_class_names()
-        self.load_glove_bert_data()
 
         self.data: Any = []
         self.targets = []

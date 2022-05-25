@@ -2,8 +2,7 @@ from typing import Any, Tuple
 from torchvision.datasets import VisionDataset
 import numpy as np
 from PIL import Image
-
-from src.utils import convert_tensor_to_image
+from utils import convert_tensor_to_image
 
 class MyVisionDataset(VisionDataset):
 

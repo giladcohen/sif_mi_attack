@@ -11,29 +11,29 @@ import argparse
 import time
 import logging
 
-from .datasets.train_val_test_data_loaders import get_test_loader, \
+from datasets.train_val_test_data_loaders import get_test_loader, \
     get_loader_with_specific_inds, get_normalized_tensor
-from .utils import boolean_string, set_logger, get_image_shape, get_num_classes, \
+from utils import boolean_string, set_logger, get_image_shape, get_num_classes, \
     get_max_train_size, calc_acc_precision_recall
-from .models.utils import get_strides, get_conv1_params, get_densenet_conv1_params, get_model
+from models.utils import get_strides, get_conv1_params, get_densenet_conv1_params, get_model
 
-from ..art.attacks.inference.membership_inference import LabelOnlyDecisionBoundary, \
+from art.attacks.inference.membership_inference import LabelOnlyDecisionBoundary, \
     MembershipInferenceBlackBoxRuleBased, MembershipInferenceBlackBox, SelfInfluenceFunctionAttack
-from ..art.estimators.classification import PyTorchClassifier
+from art.estimators.classification import PyTorchClassifier
 
 parser = argparse.ArgumentParser(description='Membership inference attack script')
-parser.add_argument('--checkpoint_dir', default='/tmp/mi/target_model/attack_model', type=str, help='checkpoint dir')
+parser.add_argument('--checkpoint_dir', default='/data/gilad/logs/mi/cifar10/resnet18/relu/s_25k_w_aug', type=str, help='checkpoint dir')
 parser.add_argument('--checkpoint_file', default='ckpt.pth', type=str, help='checkpoint path file name')
 parser.add_argument('--attack', default='self_influence', type=str, help='MI attack: gap/black_box/boundary_distance/self_influence')
 parser.add_argument('--attacker_knowledge', type=float, default=0.5, help='The portion of samples available to the attacker.')
-parser.add_argument('--output_dir', default='', type=str, help='attack directory')
-parser.add_argument('--generate_mi_data', default=True, type=boolean_string, help='To generate MI data')
-parser.add_argument('--fast', default=False, type=boolean_string, help='Fast fit (500 samples) and inference (2500 samples)')
+parser.add_argument('--output_dir', default='avgsif_debug', type=str, help='attack directory')
+parser.add_argument('--generate_mi_data', default=False, type=boolean_string, help='To generate MI data')
+parser.add_argument('--fast', default=True, type=boolean_string, help='Fast fit (500 samples) and inference (2500 samples)')
 
 # self_influence attack params
 parser.add_argument('--miscls_as_nm', default=True, type=boolean_string, help='Label misclassification is inferred as non members')
 parser.add_argument('--adaptive', default=False, type=boolean_string, help='Using train loader of influence function with augmentations, adaSIF method')
-parser.add_argument('--average', default=False, type=boolean_string, help='Using train loader of influence function with augmentations, ensemble method')
+parser.add_argument('--average', default=True, type=boolean_string, help='Using train loader of influence function with augmentations, ensemble method')
 parser.add_argument('--rec_dep', type=int, default=1, help='Recursion_depth of the influence functions.')
 parser.add_argument('--r', type=int, default=1, help='Number of iterations of which to take the avg of the Hessian_estimate calculation.')
 
@@ -232,10 +232,10 @@ def randomize_max_p_points(x: np.ndarray, y: np.ndarray, p: int):
 if args.fast:
     # to reproduce, we collect the same samples that were selected from a previous "fast" run, it they exist
     if not os.path.exists(os.path.join(OUTPUT_DIR, 'X_member_train_fast.npy')):
-        X_member_train, y_member_train = randomize_max_p_points(X_member_train, y_member_train, 500)
-        X_non_member_train, y_non_member_train = randomize_max_p_points(X_non_member_train, y_non_member_train, 500)
-        X_member_test, y_member_test = randomize_max_p_points(X_member_test, y_member_test, 2500)
-        X_non_member_test, y_non_member_test = randomize_max_p_points(X_non_member_test, y_non_member_test, 2500)
+        X_member_train, y_member_train = randomize_max_p_points(X_member_train, y_member_train, 50)
+        X_non_member_train, y_non_member_train = randomize_max_p_points(X_non_member_train, y_non_member_train, 50)
+        X_member_test, y_member_test = randomize_max_p_points(X_member_test, y_member_test, 250)
+        X_non_member_test, y_non_member_test = randomize_max_p_points(X_non_member_test, y_non_member_test, 250)
         np.save(os.path.join(OUTPUT_DIR, 'X_member_train_fast.npy'), X_member_train)
         np.save(os.path.join(OUTPUT_DIR, 'y_member_train_fast.npy'), y_member_train)
         np.save(os.path.join(OUTPUT_DIR, 'X_non_member_train_fast.npy'), X_non_member_train)
