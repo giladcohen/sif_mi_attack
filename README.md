@@ -34,5 +34,5 @@ This repo reproduces all the reuslts shown in our paper.
     python src/attack.py --checkpoint_dir /tmp/mi/cifar10/resnet18/s_25k_w_aug --attack boundary_distance --fast True
     
 # Run MI attack on pretrained models
-    To compare our results to the white-box attack in [https://arxiv.org/abs/1812.00910](url)
+    To compare our results to the white-box attack in [https://arxiv.org/abs/1812.00910](https://arxiv.org/abs/1812.00910), 
    
