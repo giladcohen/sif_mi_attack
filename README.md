@@ -1,7 +1,7 @@
 # SIF MI Attack
 This repo reproduces all the reuslts shown in our paper:
 
-**Membership Inference Attack Using Self Influence Functions**
+[**Membership Inference Attack Using Self Influence Functions**](https://arxiv.org/abs/2205.13680)
 
 # Init project
 Run in the project dir:
