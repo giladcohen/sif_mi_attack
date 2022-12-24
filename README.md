@@ -13,7 +13,7 @@ Train AlexNet/Resnet/DenseNet networks for cifar10, cifar100, and tiny_imagenet 
 
 Example: Train CIFAR-10 on ResNet18 with 25k sample points (M-7 target model in the paper) with augmentations:
 ```
-python src/train_target_model --checkpoint_dir /tmp/mi/cifar10/resnet18/s_25k_w_aug --dataset cifar10 --train_size 0.5 --augmentations True --net resnet18
+python src/train_target_model.py --checkpoint_dir /tmp/mi/cifar10/resnet18/s_25k_w_aug --dataset cifar10 --train_size 0.5 --augmentations True --net resnet18
 ```
 # Run MI attack
 Attack a target model using Gap, Black-box, Boundary distance, or our SIF, avgSIF, adaSIF attacks.
