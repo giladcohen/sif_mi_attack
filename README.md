@@ -11,10 +11,15 @@ source ./init_project.sh
 # Train target models
 Train AlexNet/Resnet/DenseNet networks for cifar10, cifar100, and tiny_imagenet using src/train_target_model.py.
 
-Example: Train CIFAR-10 on ResNet18 with 25k sample points (M-7 target model in the paper) with augmentations:
+Example 1: Train CIFAR-10 on ResNet18 with 25k sample points (M-7 target model in the paper) with augmentations:
 ```
 python src/train_target_model.py --checkpoint_dir /tmp/mi/cifar10/resnet18/s_25k_w_aug --dataset cifar10 --train_size 0.5 --augmentations True --net resnet18
 ```
+Example 2: Differential Privacy training of Tiny ImageNet on ResNet18 with 25k sample points (M-7 target model in the paper):
+```
+python src/train_target_model_dp.py --checkpoint_dir /tmp/mi/tiny_imagenet/resnet18/s_25k_dp --dataset tiny_imagenet --train_size 0.25 --augmentations False --net resnet18
+```
+
 # Run MI attack
 Attack a target model using Gap, Black-box, Boundary distance, or our SIF, avgSIF, adaSIF attacks.
 

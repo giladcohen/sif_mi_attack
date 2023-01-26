@@ -30,7 +30,7 @@ parser.add_argument('--checkpoint_dir', default='/tmp/mi/tiny_imagenet/resnet18/
 
 # dataset
 parser.add_argument('--dataset', default='tiny_imagenet', type=str, help='dataset: cifar10, cifar100, svhn, tiny_imagenet')
-parser.add_argument('--train_size', default=0.5, type=float, help='Fraction of train size out of entire trainset')
+parser.add_argument('--train_size', default=0.25, type=float, help='Fraction of train size out of entire trainset')
 parser.add_argument('--val_size', default=0.05, type=float, help='Fraction of validation size out of entire trainset')
 parser.add_argument('--augmentations', default=False, type=boolean_string, help='whether to include data augmentations')
 
